@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Trading Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+        
+        :root {
+            /* Robinhood Colors */
+            --rh-green: #00C805;
+            --rh-green-light: #E6F9E6;
+            --rh-red: #FF5000;
+            --rh-red-light: #FFF0EB;
+            --rh-black: #000000;
+            --rh-white: #FFFFFF;
+            --rh-gray-100: #F5F8FA;
+            --rh-gray-200: #E3E9ED;
+            --rh-gray-300: #CFD8DC;
+            --rh-gray-500: #8F9BB3;
+            --rh-gray-700: #2E3A59;
+            --rh-blue: #0051FF;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--rh-white);
+            color: var(--rh-black);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--rh-white);
+            border-bottom: 1px solid var(--rh-gray-200);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--rh-black);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00C805 0%, #00A304 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .btn-refresh {
+            background: var(--rh-black);
+            color: var(--rh-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 24px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-refresh:hover {
+            background: var(--rh-gray-700);
+            transform: translateY(-1px);
+        }
+        
+        .last-updated {
+            color: var(--rh-gray-500);
+            font-size: 13px;
+        }
+        
+        /* Main Content */
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 40px; }
+        
+        /* Portfolio Value Hero */
+        .portfolio-hero {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--rh-gray-200);
+            margin-bottom: 30px;
+        }
+        
+        .portfolio-label {
+            color: var(--rh-gray-500);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .portfolio-value {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .portfolio-change {
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .change-positive { color: var(--rh-green); }
+        .change-negative { color: var(--rh-red); }
+        .change-arrow { font-size: 14px; }
+        
+        /* Summary Cards Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: var(--rh-gray-100);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        
+        .summary-card:hover {
+            background: var(--rh-gray-200);
+        }
+        
+        .summary-label {
+            color: var(--rh-gray-500);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .summary-value {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        
+        .summary-value.win { color: var(--rh-green); }
+        .summary-value.loss { color: var(--rh-red); }
+        .summary-value.pending { color: var(--rh-blue); }
+        
+        /* Section Headers */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-count {
+            background: var(--rh-gray-200);
+            color: var(--rh-gray-700);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+        
+        /* Trade Cards */
+        .trades-grid {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .trade-card {
+            background: var(--rh-white);
+            border: 1px solid var(--rh-gray-200);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        
+        .trade-card:hover {
+            border-color: var(--rh-gray-300);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .trade-card.win {
+            background: var(--rh-green-light);
+            border-color: var(--rh-green);
+        }
+        
+        .trade-card.loss {
+            background: var(--rh-red-light);
+            border-color: var(--rh-red);
+        }
+        
+        .trade-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .trade-symbol {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--rh-black);
+        }
+        
+        .trade-meta {
+            font-size: 13px;
+            color: var(--rh-gray-500);
+        }
+        
+        .trade-right {
+            text-align: right;
+        }
+        
+        .trade-pnl {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .trade-pnl.win { color: var(--rh-green); }
+        .trade-pnl.loss { color: var(--rh-red); }
+        .trade-pnl.pending { color: var(--rh-blue); }
+        
+        /* Tables */
+        .table-container {
+            background: var(--rh-white);
+            border: 1px solid var(--rh-gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: var(--rh-gray-100);
+        }
+        
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--rh-gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--rh-gray-200);
+        }
+        
+        td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--rh-gray-200);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover td {
+            background: var(--rh-gray-100);
+        }
+        
+        .trade-id {
+            font-family: 'SF Mono', monospace;
+            font-size: 11px;
+            color: var(--rh-gray-500);
+            background: var(--rh-gray-100);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* Status Badges */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .status-win {
+            background: var(--rh-green-light);
+            color: var(--rh-green);
+        }
+        
+        .status-loss {
+            background: var(--rh-red-light);
+            color: var(--rh-red);
+        }
+        
+        .status-pending {
+            background: var(--rh-gray-200);
+            color: var(--rh-gray-700);
+        }
+        
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        
+        .status-win .status-dot { background: var(--rh-green); }
+        .status-loss .status-dot { background: var(--rh-red); }
+        .status-pending .status-dot { background: var(--rh-gray-500); }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .portfolio-value { font-size: 2.5em; }
+            .header { padding: 16px 20px; }
+            .container { padding: 20px; }
+            .trade-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .trade-right { text-align: left; width: 100%; }
+            table { font-size: 12px; }
+            th, td { padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🌤️</div>
+                <span>Weather Trading</span>
+            </div>
+            <div class="header-right">
+                <span class="last-updated">Updated Mar 9, 08:48 PM</span>
+                <button class="btn-refresh" onclick="location.reload()">↻ Refresh</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Portfolio Hero -->
+        <div class="portfolio-hero">
+            <div class="portfolio-label">Total P&L (Resolved)</div>
+            <div class="portfolio-value change-positive">+$2,360</div>
+            <div class="portfolio-change change-positive">
+                <span class="change-arrow">▲</span>
+                <span>+59.0% total return</span>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-label">Total Trades</div>
+                <div class="summary-value">8</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">Total Exposure</div>
+                <div class="summary-value">$4,000</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">Win Rate</div>
+                <div class="summary-value pending">86%</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-label">Pending Trades</div>
+                <div class="summary-value">1</div>
+            </div>
+        </div>
+
+        <!-- Resolved Trades -->
+        <h2 class="section-title">
+            ✅ Resolved Trades
+            <span class="section-count">7</span>
+        </h2>
+        <div class="trades-grid">
+            
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 08 • 3,225 shares • Actual: 51.7°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+    <div class="trade-card loss">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 07 • 4,545 shares • Actual: 51.3°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl loss">-$520</div>
+            <span class="status status-loss"><span class="status-dot"></span>Loss</span>
+        </div>
+    </div>
+    
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 06 • 6,976 shares • Actual: 67.7°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 06 • 6,976 shares • Actual: 67.7°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 06 • 3,260 shares • Actual: 51.1°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 03 • 3,030 shares • Actual: 73.0°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+    <div class="trade-card win">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 02 • 2,803 shares • Actual: 76.6°F</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl win">+$480</div>
+            <span class="status status-win"><span class="status-dot"></span>Win</span>
+        </div>
+    </div>
+    
+        </div>
+
+        <!-- Pending Trades -->
+        <h2 class="section-title">
+            🟡 Pending Trades
+            <span class="section-count">1</span>
+        </h2>
+        <div class="trades-grid">
+            
+    <div class="trade-card ">
+        <div class="trade-left">
+            <div class="trade-symbol">NO $500</div>
+            <div class="trade-meta">Mar 09 • 2,803 shares • Expected: +$1,068</div>
+        </div>
+        <div class="trade-right">
+            <div class="trade-pnl pending">Awaiting</div>
+            <span class="status status-pending"><span class="status-dot"></span>Pending</span>
+        </div>
+    </div>
+    
+        </div>
+
+        <!-- Complete Trade History -->
+        <h2 class="section-title">📈 Complete Trade History</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Trade ID</th>
+                        <th>Side</th>
+                        <th>Size</th>
+                        <th>Shares</th>
+                        <th>Exp. Profit</th>
+                        <th>Status</th>
+                        <th style="text-align: right;">P&L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+    <tr>
+        <td>Mar 09</td>
+        <td><code class="trade-id">paper_20260309090034...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>2,803</td>
+        <td>+$1,068</td>
+        <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
+        <td style="text-align: right; color: var(--rh-gray-500);">-</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 08</td>
+        <td><code class="trade-id">paper_20260308090039...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>3,225</td>
+        <td>+$1,419</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 07</td>
+        <td><code class="trade-id">paper_20260307091151...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>4,545</td>
+        <td>+$750</td>
+        <td><span class="status status-loss"><span class="status-dot"></span>Loss</span></td>
+        <td style="text-align: right; color: var(--rh-red); font-weight: 600;">-$520</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 06</td>
+        <td><code class="trade-id">paper_20260306171607...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>6,976</td>
+        <td>+$750</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 06</td>
+        <td><code class="trade-id">paper_20260306171548...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>6,976</td>
+        <td>+$750</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 06</td>
+        <td><code class="trade-id">paper_20260306093500...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>3,260</td>
+        <td>+$1,410</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 03</td>
+        <td><code class="trade-id">paper_20260303090019...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>3,030</td>
+        <td>+$1,319</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+    <tr>
+        <td>Mar 02</td>
+        <td><code class="trade-id">paper_20260302090036...</code></td>
+        <td>NO</td>
+        <td>$500</td>
+        <td>2,803</td>
+        <td>+$1,014</td>
+        <td><span class="status status-win"><span class="status-dot"></span>Win</span></td>
+        <td style="text-align: right; color: var(--rh-green); font-weight: 600;">+$480</td>
+    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 40px; padding: 20px; color: var(--rh-gray-500); font-size: 12px; border-top: 1px solid var(--rh-gray-200);">
+            Data Source: paper_trades_v3.jsonl • Generated: 2026-03-09 20:48:41<br>
+            Weather Trading Dashboard V4 • Robinhood Style
+        </div>
+    </div>
+</body>
+</html>

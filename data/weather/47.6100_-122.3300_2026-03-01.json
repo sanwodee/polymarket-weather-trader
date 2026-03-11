@@ -1,0 +1,1 @@
+{"date": "2026-03-01", "temp_max": 51.4, "temp_min": 34.5, "temp_mean": 42.0, "latitude": 47.61, "longitude": -122.33, "source": "forecast", "models_used": ["gfs_seamless", "ecmwf_ifs04"], "generated_at": "2026-03-01T16:55:41.281259"}

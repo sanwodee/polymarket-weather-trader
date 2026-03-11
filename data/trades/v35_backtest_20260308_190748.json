@@ -1,0 +1,139 @@
+{
+  "timestamp": "2026-03-08T19:07:48.930726",
+  "total_trades": 15,
+  "passed_trades": 0,
+  "filtered_trades": 15,
+  "v3_pnl": 6200.0,
+  "v35_pnl": 0,
+  "losses_prevented": 520.0,
+  "winners_missed": 6720.0,
+  "net_improvement": -6200.0,
+  "results": {
+    "winners_passed": [],
+    "winners_filtered": [
+      {
+        "trade_id": "paper_20260302090036",
+        "question": "paper_20260302090036",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260302090036",
+        "question": "paper_20260302090036",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260302090036",
+        "question": "paper_20260302090036",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260303090019",
+        "question": "paper_20260303090019",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260303090019",
+        "question": "paper_20260303090019",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260303090019",
+        "question": "paper_20260303090019",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306093500",
+        "question": "paper_20260306093500",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306093500",
+        "question": "paper_20260306093500",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Net EV insufficient (-4.0%)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306171548",
+        "question": "Will the highest temperature in Chicago be between",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (3.2% < 10% minimum)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306171548",
+        "question": "Will the highest temperature in Chicago be between",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (0.1% < 10% minimum)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306171607",
+        "question": "Will the highest temperature in Chicago be between",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (3.2% < 10% minimum)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260306171607",
+        "question": "Will the highest temperature in Chicago be between",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (0.1% < 10% minimum)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260307091151",
+        "question": "Will the highest temperature in Seattle be between",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (1.4% < 10% minimum)",
+        "side": "NO"
+      },
+      {
+        "trade_id": "paper_20260307091151",
+        "question": "Will the highest temperature in Miami be between 8",
+        "pnl": 480.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (0.8% < 10% minimum)",
+        "side": "NO"
+      }
+    ],
+    "losers_passed": [],
+    "losers_filtered": [
+      {
+        "trade_id": "paper_20260307091151",
+        "question": "Will the highest temperature in New York City be 4",
+        "pnl": -520.0,
+        "decision": "PASS",
+        "reason": "Insufficient gross edge on NO side (1.4% < 10% minimum)",
+        "side": "NO"
+      }
+    ]
+  }
+}

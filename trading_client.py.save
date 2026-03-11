@@ -1,0 +1,64 @@
+nano trading_client.py
+from py_clob_client.client import ClobClient
+from dotenv import load_dotenv
+import json
+import os
+
+load_dotenv()
+
+HOST = "https://clob.polymarket.com"
+CHAIN_ID = 137
+
+def load_client():
+    """Load trading client with saved L2 credentials"""
+    print("🔌 Loading trading client...")
+    
+    # Method 1: Load from saved JSON (fast)
+    if os.path.exists(".api_credentials.json"):
+        with open(".api_credentials.json") as f:
+            creds = json.load(f)
+        
+        client = ClobClient(
+            HOST,
+            key=os.getenv('POLYGON_WALLET_PRIVATE_KEY'),  # L1
+            chain_id=CHAIN_ID,
+            creds=creds  # L2 from JSON
+        )
+        print("✅ Loaded from saved credentials")
+    else:
+        # Method 2: Derive fresh (fallback)
+        print("📂 No saved credentials, deriving fresh...")
+        temp_client = ClobClient(
+            HOST,
+            key=os.getenv('POLYGON_WALLET_PRIVATE_KEY'),
+            chain_id=CHAIN_ID
+        )
+        creds = temp_client.create_or_derive_api_creds()
+        client = ClobClient(HOST, key=os.getenv('POLYGON_WALLET_PRIVATE_KEY'), chain_id=CHAIN_ID, creds=creds)
+    
+    return client
+
+def main():
+    client = load_client()
+    
+    # Test: Get your balance
+    print("\n💰 Fetching your balance...")
+    balance = client.get_balance()
+    print(f"   USDC: ${float(balance):.2f}")
+    
+    # Test: Get open markets
+    print("\n📊 Fetching active markets...")
+    markets = client.get_markets()
+    print(f"   Found {len(markets['data'])} markets")
+    
+    # Show top 3 markets
+    for i, m in enumerate(markets['data'][:3], 1):
+        print(f"\n   {i}. {m['question'][:60]}...")
+        print(f"      Volume: ${m.get('volume', 0):,.0f}")
+    
+    print("\n" + "="*50)
+    print("🎯 Ready for trading!")
+    print("="*50)
+
+if __name__ == "__main__":
+    main()

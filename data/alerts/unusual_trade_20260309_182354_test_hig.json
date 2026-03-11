@@ -1,0 +1,40 @@
+{
+  "alert_type": "UNUSUAL_HIGH_SHARE_TRADE",
+  "severity": "MEDIUM",
+  "timestamp": "2026-03-09T18:23:54.851778",
+  "market_id": "test_high_shares",
+  "question": "Will Miami hit 90\u00b0F on an unusually hot March day?",
+  "trade_details": {
+    "shares": 60000,
+    "position_size": 3000.0,
+    "share_price": 0.05,
+    "side": "YES",
+    "model_probability": 0.18,
+    "market_price_yes": 0.05
+  },
+  "risk_analysis": {
+    "risk_score": 25,
+    "red_flags": [],
+    "yellow_flags": [
+      "Skewed price: 5.0%",
+      "High edge: 260%"
+    ],
+    "detailed_notes": [
+      "Market shows strong directional bias (5.0%). Review if model assumptions match reality."
+    ]
+  },
+  "recommendation": {
+    "action": "PROCEED_WITH_CAUTION",
+    "reason": "Yellow flags - monitor closely",
+    "next_steps": [
+      "Trade approved but flagged - monitor closely",
+      "Consider reducing position size by 50%",
+      "Set manual reminder to check resolution",
+      "Log this trade for post-hoc analysis"
+    ]
+  },
+  "original_evaluation": {
+    "market_id": "test_high_shares",
+    "decision": "PENDING_ADVANCED_REVIEW"
+  }
+}

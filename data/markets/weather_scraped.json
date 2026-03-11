@@ -1,0 +1,576 @@
+[
+  {
+    "slug": "bitcoin-up-or-down-august-22-9pm-et",
+    "question": "Live Crypto",
+    "href": "https://polymarket.com/event/bitcoin-up-or-down-august-22-9pm-et/live",
+    "type": "weather_other",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": null,
+    "threshold": null
+  },
+  {
+    "slug": "how-many-inches-of-snow-in-nyc-this-weekend-february-21-23-273",
+    "question": "How many inches of snow in NYC this weekend?  (February 21 - 23)",
+    "href": "https://polymarket.com/event/how-many-inches-of-snow-in-nyc-this-weekend-february-21-23-273",
+    "type": "snowfall_amount",
+    "location": {
+      "city": "New York City",
+      "lat": 40.71,
+      "lon": -74.01,
+      "country": "US"
+    },
+    "target_date": "2026-02-21",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-buenos-aires-on-february-23-2026",
+    "question": "Highest temperature in Buenos Aires on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-buenos-aires-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Buenos Aires",
+      "lat": -34.6,
+      "lon": -58.38,
+      "country": "AR"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-chicago-on-february-23-2026",
+    "question": "Highest temperature in Chicago on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-chicago-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Chicago",
+      "lat": 41.88,
+      "lon": -87.63,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-london-on-february-24-2026",
+    "question": "Highest temperature in London on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-london-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "London",
+      "lat": 51.51,
+      "lon": -0.13,
+      "country": "UK"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-nyc-on-february-24-2026",
+    "question": "Highest temperature in NYC on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-nyc-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "New York City",
+      "lat": 40.71,
+      "lon": -74.01,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-wellington-on-february-24-2026",
+    "question": "Highest temperature in Wellington on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-wellington-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Wellington",
+      "lat": -41.29,
+      "lon": 174.78,
+      "country": "NZ"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-miami-on-february-23-2026",
+    "question": "Highest temperature in Miami on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-miami-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Miami",
+      "lat": 25.76,
+      "lon": -80.19,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-atlanta-on-february-23-2026",
+    "question": "Highest temperature in Atlanta on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-atlanta-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Atlanta",
+      "lat": 33.75,
+      "lon": -84.39,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-toronto-on-february-23-2026",
+    "question": "Highest temperature in Toronto on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-toronto-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Toronto",
+      "lat": 43.65,
+      "lon": -79.38,
+      "country": "CA"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-sao-paulo-on-february-23-2026",
+    "question": "Highest temperature in Sao Paulo on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-sao-paulo-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Sao Paulo",
+      "lat": -23.55,
+      "lon": -46.63,
+      "country": "BR"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-seoul-on-february-24-2026",
+    "question": "Highest temperature in Seoul on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-seoul-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Seoul",
+      "lat": 37.57,
+      "lon": 126.98,
+      "country": "KR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "how-many-7pt0-or-above-earthquakes-by-june-30",
+    "question": "How many 7.0 or above earthquakes by June 30?",
+    "href": "https://polymarket.com/event/how-many-7pt0-or-above-earthquakes-by-june-30",
+    "type": "earthquake_count",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": "2026-06-30",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-seattle-on-february-23-2026",
+    "question": "Highest temperature in Seattle on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-seattle-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Seattle",
+      "lat": 47.61,
+      "lon": -122.33,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-dallas-on-february-23-2026",
+    "question": "Highest temperature in Dallas on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-dallas-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Dallas",
+      "lat": 32.78,
+      "lon": -96.8,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "february-2026-temperature-increase-c",
+    "question": "February 2026 Temperature Increase (\u00baC)",
+    "href": "https://polymarket.com/event/february-2026-temperature-increase-c",
+    "type": "weather_other",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": null,
+    "threshold": null
+  },
+  {
+    "slug": "how-many-6pt5-or-above-earthquakes-february-23-march-1",
+    "question": "How many 6.5 or above earthquakes February 23 - March 1?",
+    "href": "https://polymarket.com/event/how-many-6pt5-or-above-earthquakes-february-23-march-1",
+    "type": "earthquake_count",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-seattle-on-february-24-2026",
+    "question": "Highest temperature in Seattle on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-seattle-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Seattle",
+      "lat": 47.61,
+      "lon": -122.33,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-ankara-on-february-24-2026",
+    "question": "Highest temperature in Ankara on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-ankara-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-atlanta-on-february-24-2026",
+    "question": "Highest temperature in Atlanta on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-atlanta-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Atlanta",
+      "lat": 33.75,
+      "lon": -84.39,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-buenos-aires-on-february-24-2026",
+    "question": "Highest temperature in Buenos Aires on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-buenos-aires-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Buenos Aires",
+      "lat": -34.6,
+      "lon": -58.38,
+      "country": "AR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-dallas-on-february-24-2026",
+    "question": "Highest temperature in Dallas on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-dallas-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Dallas",
+      "lat": 32.78,
+      "lon": -96.8,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-sao-paulo-on-february-24-2026",
+    "question": "Highest temperature in Sao Paulo on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-sao-paulo-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Sao Paulo",
+      "lat": -23.55,
+      "lon": -46.63,
+      "country": "BR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-nyc-on-february-24-2026",
+    "question": "Highest temperature in NYC on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-nyc-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "New York City",
+      "lat": 40.71,
+      "lon": -74.01,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-atlanta-on-february-24-2026",
+    "question": "Highest temperature in Atlanta on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-atlanta-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Atlanta",
+      "lat": 33.75,
+      "lon": -84.39,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-buenos-aires-on-february-24-2026",
+    "question": "Highest temperature in Buenos Aires on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-buenos-aires-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Buenos Aires",
+      "lat": -34.6,
+      "lon": -58.38,
+      "country": "AR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-chicago-on-february-24-2026",
+    "question": "Highest temperature in Chicago on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-chicago-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Chicago",
+      "lat": 41.88,
+      "lon": -87.63,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-wellington-on-february-24-2026",
+    "question": "Highest temperature in Wellington on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-wellington-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Wellington",
+      "lat": -41.29,
+      "lon": 174.78,
+      "country": "NZ"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-toronto-on-february-24-2026",
+    "question": "Highest temperature in Toronto on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-toronto-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Toronto",
+      "lat": 43.65,
+      "lon": -79.38,
+      "country": "CA"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-seattle-on-february-24-2026",
+    "question": "Highest temperature in Seattle on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-seattle-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Seattle",
+      "lat": 47.61,
+      "lon": -122.33,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-miami-on-february-24-2026",
+    "question": "Highest temperature in Miami on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-miami-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Miami",
+      "lat": 25.76,
+      "lon": -80.19,
+      "country": "US"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-paris-on-february-24-2026",
+    "question": "Highest temperature in Paris on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-paris-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Paris",
+      "lat": 48.86,
+      "lon": 2.35,
+      "country": "FR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-ankara-on-february-24-2026",
+    "question": "Highest temperature in Ankara on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-ankara-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Unknown",
+      "lat": null,
+      "lon": null,
+      "country": "Unknown"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-seoul-on-february-24-2026",
+    "question": "Highest temperature in Seoul on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-seoul-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Seoul",
+      "lat": 37.57,
+      "lon": 126.98,
+      "country": "KR"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-london-on-february-24-2026",
+    "question": "Highest temperature in London on February 24?",
+    "href": "https://polymarket.com/event/highest-temperature-in-london-on-february-24-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "London",
+      "lat": 51.51,
+      "lon": -0.13,
+      "country": "UK"
+    },
+    "target_date": "2026-02-24",
+    "threshold": null
+  },
+  {
+    "slug": "how-many-inches-of-snow-in-nyc-this-weekend-february-21-23-273",
+    "question": "How many inches of snow in NYC this weekend?  (February 21 - 23)",
+    "href": "https://polymarket.com/event/how-many-inches-of-snow-in-nyc-this-weekend-february-21-23-273",
+    "type": "snowfall_amount",
+    "location": {
+      "city": "New York City",
+      "lat": 40.71,
+      "lon": -74.01,
+      "country": "US"
+    },
+    "target_date": "2026-02-21",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-dallas-on-february-23-2026",
+    "question": "Highest temperature in Dallas on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-dallas-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Dallas",
+      "lat": 32.78,
+      "lon": -96.8,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-toronto-on-february-23-2026",
+    "question": "Highest temperature in Toronto on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-toronto-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Toronto",
+      "lat": 43.65,
+      "lon": -79.38,
+      "country": "CA"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-chicago-on-february-23-2026",
+    "question": "Highest temperature in Chicago on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-chicago-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Chicago",
+      "lat": 41.88,
+      "lon": -87.63,
+      "country": "US"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-buenos-aires-on-february-23-2026",
+    "question": "Highest temperature in Buenos Aires on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-buenos-aires-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Buenos Aires",
+      "lat": -34.6,
+      "lon": -58.38,
+      "country": "AR"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  },
+  {
+    "slug": "highest-temperature-in-sao-paulo-on-february-23-2026",
+    "question": "Highest temperature in Sao Paulo on February 23?",
+    "href": "https://polymarket.com/event/highest-temperature-in-sao-paulo-on-february-23-2026",
+    "type": "temperature_max",
+    "location": {
+      "city": "Sao Paulo",
+      "lat": -23.55,
+      "lon": -46.63,
+      "country": "BR"
+    },
+    "target_date": "2026-02-23",
+    "threshold": null
+  }
+]
