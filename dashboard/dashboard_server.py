@@ -442,14 +442,9 @@ def generate_html(trades, stats):
     updated_time = datetime.now().strftime('%b %-d, %I:%M %p')
     generated_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
-    # Build sections conditionally
-    paper_section = ""
-    if has_paper:
-        paper_section = generate_summary_section("Paper Trading", stats, is_live=False)
-    
-    live_section = ""
-    if has_live:
-        live_section = generate_summary_section("Live Trading", stats, is_live=True)
+    # Build both sections (always show, even with 0 trades)
+    paper_section = generate_summary_section("Paper Trading", stats, is_live=False)
+    live_section = generate_summary_section("Live Trading", stats, is_live=True)
     
     # Combined total P&L
     total_pnl = stats['total_pnl']
