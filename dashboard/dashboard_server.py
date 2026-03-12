@@ -123,8 +123,95 @@ def format_trade_card(t, status_type):
     </div>
     '''
 
+def load_daily_reports():
+    """Load daily reports to get market questions for city extraction"""
+    reports = {}
+    report_dir = os.path.join(SCRIPT_DIR, '../data/positions/daily_reports')
+    
+    if not os.path.exists(report_dir):
+        return reports
+    
+    for filename in os.listdir(report_dir):
+        if filename.endswith('.json'):
+            try:
+                date_key = filename.replace('.json', '')
+                with open(os.path.join(report_dir, filename), 'r') as f:
+                    report = json.load(f)
+                    # Index trades by market_id
+                    for trade in report.get('trades', []):
+                        market_id = trade.get('market_id', '')
+                        question = trade.get('market_question', '')
+                        if market_id and question:
+                            # Extract city from question
+                            city = extract_city_from_question(question)
+                            reports[market_id] = {
+                                'city': city,
+                                'question': question[:60],
+                                'full_question': question
+                            }
+                    # Also from predictions
+                    for pred in report.get('predictions', []):
+                        market_id = pred.get('market_id', '')
+                        question = pred.get('question', '')
+                        if market_id and question:
+                            city = extract_city_from_question(question)
+                            reports[market_id] = {
+                                'city': city,
+                                'question': question[:60],
+                                'full_question': question
+                            }
+            except Exception:
+                continue
+    
+    return reports
+
+
+def extract_city_from_question(question):
+    """Extract city name from market question"""
+    if not question:
+        return "Unknown"
+    
+    q_lower = question.lower()
+    
+    # US Cities mapping
+    cities = {
+        'seattle': 'Seattle',
+        'chicago': 'Chicago',
+        'miami': 'Miami',
+        'atlanta': 'Atlanta',
+        'new york': 'New York',
+        'nyc': 'NYC',
+        'los angeles': 'Los Angeles',
+        'la': 'LA',
+        'houston': 'Houston',
+        'dallas': 'Dallas',
+        'denver': 'Denver',
+        'boston': 'Boston',
+        'phoenix': 'Phoenix',
+        'san francisco': 'San Francisco',
+        'portland': 'Portland',
+        'las vegas': 'Las Vegas',
+    }
+    
+    for city_key, city_name in cities.items():
+        if city_key in q_lower:
+            return city_name
+    
+    # Try to extract any word before "highest" or "temperature"
+    import re
+    match = re.search(r'(\w+)\s+(?:highest|temperature|hot)', q_lower)
+    if match:
+        return match.group(1).title()
+    
+    return "Unknown"
+
+
+# Load reports once at startup
+DAILY_REPORTS = load_daily_reports()
+
+
 def format_daily_summary_card(date_str, day_data):
-    """Generate a daily summary card with nested trades"""
+    """Generate a daily summary card with nested trades including city names"""
     date_display = datetime.strptime(date_str, '%Y-%m-%d').strftime('%b %d, %Y')
     daily_pnl = day_data['pnl']
     num_trades = len(day_data['trades'])
@@ -135,7 +222,7 @@ def format_daily_summary_card(date_str, day_data):
     summary_class = 'win' if is_profit else 'loss'
     pnl_text = f"+${daily_pnl:,.0f}" if is_profit else f"-${abs(daily_pnl):,.0f}"
     
-    # Generate nested trade cards for this day (compact view)
+    # Generate nested trade cards for this day (compact view with city names)
     trade_cards = ""
     for t in day_data['trades']:
         side = t['side']
@@ -145,11 +232,16 @@ def format_daily_summary_card(date_str, day_data):
         trade_pnl_text = f"+${pnl:,.0f}" if is_trade_win else f"-${abs(pnl):,.0f}"
         trade_pnl_class = 'win' if is_trade_win else 'loss'
         actual_temp = t.get('actual_temp', '-')
+        market_id = t.get('market_id', '')
+        
+        # Get city name from reports or fallback to unknown
+        report_info = DAILY_REPORTS.get(market_id, {})
+        city = report_info.get('city', 'Unknown')
         
         trade_cards += f'''
         <div class="nested-trade">
             <div class="nested-left">
-                <span class="nested-symbol">{side} ${size:,.0f}</span>
+                <span class="nested-symbol">{city} {side} ${size:,.0f}</span>
                 <span class="nested-meta">Actual: {actual_temp}°F</span>
             </div>
             <div class="nested-pnl {trade_pnl_class}">{trade_pnl_text}</div>
