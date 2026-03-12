@@ -34,8 +34,10 @@ def load_trades():
                         continue
                     try:
                         trade = json.loads(line)
-                        if trade['paper_trade_id'] not in seen:
-                            seen.add(trade['paper_trade_id'])
+                        # Use composite key: paper_trade_id + market_id for uniqueness
+                        unique_key = f"{trade.get('paper_trade_id', '')}_{trade.get('market_id', '')}"
+                        if unique_key not in seen:
+                            seen.add(unique_key)
                             trades.append(trade)
                     except json.JSONDecodeError:
                         continue
@@ -57,6 +59,19 @@ def calculate_stats(trades):
     
     total_pnl = sum(t.get('pnl', 0) or 0 for t in resolved)
     
+    # Group resolved trades by date
+    daily_stats = {}
+    for t in resolved:
+        date = datetime.fromisoformat(t['timestamp'].replace('Z', '+00:00')).strftime('%Y-%m-%d')
+        if date not in daily_stats:
+            daily_stats[date] = {'trades': [], 'pnl': 0, 'wins': 0, 'losses': 0}
+        daily_stats[date]['trades'].append(t)
+        daily_stats[date]['pnl'] += t.get('pnl', 0) or 0
+        if t.get('pnl', 0) > 0:
+            daily_stats[date]['wins'] += 1
+        else:
+            daily_stats[date]['losses'] += 1
+    
     return {
         'total_trades': total_trades,
         'total_exposure': total_exposure,
@@ -67,7 +82,8 @@ def calculate_stats(trades):
         'win_rate': win_rate,
         'total_pnl': total_pnl,
         'resolved': resolved,
-        'pending': pending
+        'pending': pending,
+        'daily_stats': daily_stats
     }
 
 def format_trade_card(t, status_type):
@@ -103,6 +119,57 @@ def format_trade_card(t, status_type):
         <div class="trade-right">
             {pnl_display}
             {status_html}
+        </div>
+    </div>
+    '''
+
+def format_daily_summary_card(date_str, day_data):
+    """Generate a daily summary card with nested trades"""
+    date_display = datetime.strptime(date_str, '%Y-%m-%d').strftime('%b %d, %Y')
+    daily_pnl = day_data['pnl']
+    num_trades = len(day_data['trades'])
+    wins = day_data['wins']
+    losses = day_data['losses']
+    
+    is_profit = daily_pnl >= 0
+    summary_class = 'win' if is_profit else 'loss'
+    pnl_text = f"+${daily_pnl:,.0f}" if is_profit else f"-${abs(daily_pnl):,.0f}"
+    
+    # Generate nested trade cards for this day (compact view)
+    trade_cards = ""
+    for t in day_data['trades']:
+        side = t['side']
+        size = t['size_usd']
+        pnl = t.get('pnl', 0) or 0
+        is_trade_win = pnl > 0
+        trade_pnl_text = f"+${pnl:,.0f}" if is_trade_win else f"-${abs(pnl):,.0f}"
+        trade_pnl_class = 'win' if is_trade_win else 'loss'
+        actual_temp = t.get('actual_temp', '-')
+        
+        trade_cards += f'''
+        <div class="nested-trade">
+            <div class="nested-left">
+                <span class="nested-symbol">{side} ${size:,.0f}</span>
+                <span class="nested-meta">Actual: {actual_temp}°F</span>
+            </div>
+            <div class="nested-pnl {trade_pnl_class}">{trade_pnl_text}</div>
+        </div>
+        '''
+    
+    return f'''
+    <div class="daily-summary {summary_class}">
+        <div class="daily-header">
+            <div class="daily-left">
+                <div class="daily-date">{date_display}</div>
+                <div class="daily-meta">{num_trades} trades • {wins}W/{losses}L</div>
+            </div>
+            <div class="daily-right">
+                <div class="daily-pnl {summary_class}">{pnl_text}</div>
+                <span class="status status-{'win' if is_profit else 'loss'}"><span class="status-dot"></span>{'Daily Profit' if is_profit else 'Daily Loss'}</span>
+            </div>
+        </div>
+        <div class="daily-trades">
+            {trade_cards}
         </div>
     </div>
     '''
@@ -148,11 +215,17 @@ def generate_html(trades, stats):
     exposure_factor = stats['total_exposure'] if stats['total_exposure'] > 0 else 1
     return_pct = (stats['total_pnl'] / exposure_factor) * 100 if exposure_factor > 0 else 0
     
-    # Generate cards and rows
-    resolved_cards = ''.join(format_trade_card(t, 'resolved') for t in reversed(stats['resolved']))
-    if not resolved_cards:
-        resolved_cards = '<div style="text-align: center; padding: 40px; color: var(--rh-gray-500);">No resolved trades yet.</div>'
+    # Generate daily summary cards (sorted by date descending)
+    daily_cards = ""
+    sorted_dates = sorted(stats['daily_stats'].keys(), reverse=True)
+    for date in sorted_dates:
+        day_data = stats['daily_stats'][date]
+        daily_cards += format_daily_summary_card(date, day_data)
     
+    if not daily_cards:
+        daily_cards = '<div style="text-align: center; padding: 40px; color: var(--rh-gray-500);">No resolved trades yet.</div>'
+    
+    # Generate cards and rows
     pending_cards = ''.join(format_trade_card(t, 'pending') for t in reversed(stats['pending']))
     if not pending_cards:
         pending_cards = '<div style="text-align: center; padding: 40px; color: var(--rh-gray-500);">No pending trades.</div>'
@@ -511,7 +584,116 @@ def generate_html(trades, stats):
             .trade-right {{ text-align: left; width: 100%; }}
             table {{ font-size: 12px; }}
             th, td {{ padding: 10px 12px; }}
+            .daily-header {{ flex-direction: column; align-items: flex-start; gap: 10px; }}
+            .daily-right {{ text-align: left; width: 100%; }}
         }}
+        
+        /* Daily Summary Cards */
+        .daily-grid {{
+            display: grid;
+            gap: 16px;
+        }}
+        
+        .daily-summary {{
+            background: var(--rh-white);
+            border: 1px solid var(--rh-gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }}
+        
+        .daily-summary:hover {{
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }}
+        
+        .daily-summary.win {{
+            border-color: var(--rh-green);
+            background: linear-gradient(to bottom, var(--rh-green-light) 0%, var(--rh-white) 60px);
+        }}
+        
+        .daily-summary.loss {{
+            border-color: var(--rh-red);
+            background: linear-gradient(to bottom, var(--rh-red-light) 0%, var(--rh-white) 60px);
+        }}
+        
+        .daily-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--rh-gray-200);
+        }}
+        
+        .daily-left {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }}
+        
+        .daily-date {{
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--rh-black);
+        }}
+        
+        .daily-meta {{
+            font-size: 13px;
+            color: var(--rh-gray-500);
+        }}
+        
+        .daily-right {{
+            text-align: right;
+        }}
+        
+        .daily-pnl {{
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }}
+        
+        .daily-pnl.win {{ color: var(--rh-green); }}
+        .daily-pnl.loss {{ color: var(--rh-red); }}
+        
+        .daily-trades {{
+            padding: 12px 20px;
+            background: var(--rh-gray-100);
+        }}
+        
+        .nested-trade {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: var(--rh-white);
+            border-radius: 10px;
+            border: 1px solid var(--rh-gray-200);
+        }}
+        
+        .nested-left {{
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }}
+        
+        .nested-symbol {{
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--rh-black);
+        }}
+        
+        .nested-meta {{
+            font-size: 12px;
+            color: var(--rh-gray-500);
+        }}
+        
+        .nested-pnl {{
+            font-size: 15px;
+            font-weight: 600;
+        }}
+        
+        .nested-pnl.win {{ color: var(--rh-green); }}
+        .nested-pnl.loss {{ color: var(--rh-red); }}
     </style>
 </head>
 <body>
@@ -558,11 +740,11 @@ def generate_html(trades, stats):
         </div>
 
         <h2 class="section-title">
-            ✅ Resolved Trades
+            ✅ Daily Results
             <span class="section-count">{stats['resolved_count']}</span>
         </h2>
-        <div class="trades-grid">
-            {resolved_cards}
+        <div class="daily-grid">
+            {daily_cards}
         </div>
 
         <h2 class="section-title">
