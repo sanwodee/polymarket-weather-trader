@@ -276,8 +276,8 @@ def run_daily_trading(target_date_str=None):
     print(f"\n🏆 Top {len(trades_to_execute)} trades selected from {len(valid_trades)} candidates")
     
     for trade in trades_to_execute:
-        # Override position size to fixed $500
-        trade['recommendation']['size_usd'] = 500.0
+        # Override position size to fixed $40 (reduced from $500 for $200 bankroll)
+        trade['recommendation']['size_usd'] = 40.0
         
         result = evaluator.execute_paper_trade(trade)
         
@@ -292,7 +292,7 @@ def run_daily_trading(target_date_str=None):
             'market_question': trade['market_info']['market']['question'],
             'recommendation': {
                 'side': side,
-                'size_usd': 500.0,
+                'size_usd': 40.0,
                 'shares': shares,
                 'is_maker': trade['recommendation'].get('is_maker', False),
                 'confidence': trade['recommendation'].get('confidence', 'medium')

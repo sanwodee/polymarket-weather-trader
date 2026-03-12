@@ -147,7 +147,7 @@ def run_safest_trades():
             'decision': 'EXECUTE',
             'recommendation': {
                 'side': opp['side'],
-                'size_usd': 500.0,
+                'size_usd': 40.0,
                 'shares': int(500 / opp['market_price']) if opp['side'] == 'YES' else int(500 / (1 - opp['market_price'])),
                 'confidence': opp['prediction']['recommendation']['confidence']
             },
