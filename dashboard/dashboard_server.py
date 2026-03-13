@@ -1095,15 +1095,20 @@ def generate_html(trades, stats):
 @app.route('/')
 def dashboard():
     """Serve dashboard - regenerates fresh HTML on each request"""
-    trades = load_trades()
-    
-    if not trades:
-        return "No trades found in database.", 404
-    
-    stats = calculate_stats(trades)
-    html = generate_html(trades, stats)
-    
-    return Response(html, mimetype='text/html')
+    try:
+        trades = load_trades()
+        
+        if not trades:
+            return "No trades found in database.", 404
+        
+        stats = calculate_stats(trades)
+        html = generate_html(trades, stats)
+        
+        return Response(html, mimetype='text/html')
+    except Exception as e:
+        import traceback
+        error_msg = f"Error: {str(e)}\n\n{traceback.format_exc()}"
+        return Response(error_msg, mimetype='text/plain', status=500)
 
 
 def main():
